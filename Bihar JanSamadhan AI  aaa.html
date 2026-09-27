@@ -1,0 +1,3461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Bihar JanSamadhan AI</title>
+
+<style>
+
+/* =====================================================
+   BASIC
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#f1f5f9;
+    color:#1e293b;
+}
+
+button,
+input,
+textarea,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+header{
+    background:linear-gradient(135deg,#0f766e,#2563eb);
+    color:white;
+    padding:16px 6%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+}
+
+.logo{
+    font-size:21px;
+    font-weight:bold;
+}
+
+.logo small{
+    display:block;
+    font-size:12px;
+    font-weight:normal;
+    margin-top:4px;
+}
+
+.language select{
+    border:none;
+    padding:8px 10px;
+    border-radius:8px;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+main{
+    width:min(1100px,94%);
+    margin:30px auto;
+}
+
+.screen{
+    display:none;
+}
+
+.screen.active{
+    display:block;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.hero h1{
+    color:#0f766e;
+    margin-bottom:8px;
+    font-size:32px;
+}
+
+.hero p{
+    color:#64748b;
+}
+
+
+/* =====================================================
+   PROGRESS
+===================================================== */
+
+.progress{
+    display:flex;
+    justify-content:space-between;
+    position:relative;
+    margin:20px auto 35px;
+    max-width:800px;
+}
+
+.progress:before{
+    content:"";
+    height:4px;
+    background:#dbe2ea;
+    position:absolute;
+    left:5%;
+    right:5%;
+    top:17px;
+}
+
+.step{
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    background:#dbe2ea;
+    color:#64748b;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    z-index:2;
+}
+
+.step.active{
+    background:#2563eb;
+    color:white;
+}
+
+
+/* =====================================================
+   CARD
+===================================================== */
+
+.card{
+    background:white;
+    border-radius:18px;
+    padding:28px;
+    box-shadow:0 8px 30px rgba(15,23,42,.08);
+    margin-bottom:25px;
+}
+
+.card h2{
+    margin-bottom:8px;
+}
+
+.description{
+    color:#64748b;
+    margin-bottom:20px;
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+label{
+    display:block;
+    font-weight:bold;
+    margin:17px 0 7px;
+}
+
+input,
+textarea,
+select{
+    width:100%;
+    padding:13px;
+    border:1px solid #cbd5e1;
+    border-radius:10px;
+    outline:none;
+    background:white;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+    border-color:#2563eb;
+}
+
+textarea{
+    min-height:150px;
+    resize:vertical;
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:25px;
+}
+
+.btn{
+    border:0;
+    border-radius:10px;
+    padding:13px 21px;
+    font-weight:bold;
+}
+
+.primary{
+    background:#2563eb;
+    color:white;
+}
+
+.success{
+    background:#059669;
+    color:white;
+}
+
+.secondary{
+    background:#e2e8f0;
+    color:#334155;
+}
+
+.orange{
+    background:#ea580c;
+    color:white;
+}
+
+.cyan{
+    background:#0891b2;
+    color:white;
+}
+
+
+/* =====================================================
+   CATEGORY
+===================================================== */
+
+.category-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(165px,1fr));
+    gap:14px;
+}
+
+.category{
+    border:2px solid #e2e8f0;
+    border-radius:15px;
+    padding:18px 10px;
+    text-align:center;
+    background:#f8fafc;
+    transition:.2s;
+}
+
+.category:hover{
+    transform:translateY(-3px);
+    border-color:#2563eb;
+}
+
+.category.selected{
+    background:#dbeafe;
+    border-color:#2563eb;
+}
+
+.category-icon{
+    font-size:32px;
+    margin-bottom:8px;
+}
+
+.category-name{
+    font-weight:bold;
+    font-size:14px;
+}
+
+
+/* =====================================================
+   SUB CATEGORY
+===================================================== */
+
+.subcategory-box{
+    margin-top:22px;
+    padding:20px;
+    background:#f8fafc;
+    border-radius:14px;
+    border:1px solid #e2e8f0;
+}
+
+.subcategory-box h3{
+    margin-bottom:12px;
+    color:#0f766e;
+}
+
+.subcategory-list{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:10px;
+}
+
+.subcategory{
+    padding:12px;
+    background:white;
+    border:1px solid #cbd5e1;
+    border-radius:9px;
+    cursor:pointer;
+}
+
+.subcategory.selected{
+    background:#dbeafe;
+    border-color:#2563eb;
+}
+
+
+/* =====================================================
+   YOUTUBE STYLE VOICE BOX
+===================================================== */
+
+.voice-container{
+    margin-top:18px;
+    background:linear-gradient(135deg,#111827,#1e293b);
+    color:white;
+    border-radius:18px;
+    padding:22px;
+    text-align:center;
+}
+
+.voice-title{
+    font-size:18px;
+    font-weight:bold;
+}
+
+.voice-subtitle{
+    color:#cbd5e1;
+    font-size:13px;
+    margin-top:5px;
+}
+
+.mic-button{
+    width:82px;
+    height:82px;
+    border-radius:50%;
+    border:0;
+    background:#ef4444;
+    color:white;
+    font-size:36px;
+    margin:20px auto 12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 0 0 0 rgba(239,68,68,.7);
+}
+
+.mic-button.recording{
+    animation:pulse 1.3s infinite;
+}
+
+@keyframes pulse{
+    0%{
+        box-shadow:0 0 0 0 rgba(239,68,68,.7);
+    }
+    70%{
+        box-shadow:0 0 0 20px rgba(239,68,68,0);
+    }
+    100%{
+        box-shadow:0 0 0 0 rgba(239,68,68,0);
+    }
+}
+
+.voice-timer{
+    font-size:24px;
+    font-weight:bold;
+    margin:5px;
+}
+
+.voice-status{
+    color:#cbd5e1;
+    min-height:20px;
+}
+
+.voice-controls{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-top:12px;
+}
+
+.voice-control{
+    border:1px solid #475569;
+    background:#334155;
+    color:white;
+    padding:9px 15px;
+    border-radius:8px;
+}
+
+.voice-control:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+}
+
+.mic-help{
+    margin-top:12px;
+    font-size:12px;
+    color:#94a3b8;
+}
+
+
+/* =====================================================
+   GPS
+===================================================== */
+
+.gps-box{
+    margin-top:10px;
+    background:#ecfeff;
+    border:1px solid #a5f3fc;
+    border-radius:12px;
+    padding:15px;
+}
+
+.gps-status{
+    margin-top:7px;
+    color:#0e7490;
+    font-size:14px;
+}
+
+
+/* =====================================================
+   PHOTO
+===================================================== */
+
+.proof{
+    margin-top:10px;
+    padding:22px;
+    border:2px dashed #cbd5e1;
+    background:#f8fafc;
+    border-radius:14px;
+    text-align:center;
+}
+
+.preview{
+    display:none;
+    width:100%;
+    max-height:320px;
+    object-fit:contain;
+    border-radius:12px;
+    margin-top:15px;
+}
+
+.photo-info{
+    margin-top:8px;
+    color:#475569;
+    font-size:13px;
+}
+
+
+/* =====================================================
+   AI ANALYSIS
+===================================================== */
+
+.ai-box{
+    background:linear-gradient(135deg,#eff6ff,#ecfeff);
+    border:1px solid #bfdbfe;
+    padding:20px;
+    border-radius:15px;
+}
+
+.ai-title{
+    color:#1d4ed8;
+    font-size:19px;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.analysis-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:12px;
+}
+
+.analysis-item{
+    background:white;
+    border-radius:10px;
+    padding:14px;
+    border:1px solid #dbeafe;
+}
+
+.analysis-item small{
+    display:block;
+    color:#64748b;
+    margin-bottom:5px;
+}
+
+.analysis-item strong{
+    word-break:break-word;
+}
+
+.note{
+    margin-top:18px;
+    padding:13px;
+    background:#fffbeb;
+    border-left:4px solid #f59e0b;
+    color:#92400e;
+    font-size:13px;
+}
+
+
+/* =====================================================
+   TRACKING
+===================================================== */
+
+.complaint-header{
+    text-align:center;
+    background:#ecfdf5;
+    border:1px solid #a7f3d0;
+    padding:20px;
+    border-radius:15px;
+    margin-bottom:20px;
+}
+
+.complaint-header h2{
+    color:#047857;
+}
+
+.complaint-number{
+    font-size:30px;
+    font-weight:bold;
+    color:#065f46;
+    margin:8px;
+}
+
+
+/* =====================================================
+   STATUS TIMELINE
+===================================================== */
+
+.status-timeline{
+    position:relative;
+    margin-top:25px;
+}
+
+.status-item{
+    position:relative;
+    display:flex;
+    gap:16px;
+    padding-bottom:25px;
+}
+
+.status-line{
+    position:absolute;
+    left:18px;
+    top:38px;
+    bottom:0;
+    width:3px;
+    background:#cbd5e1;
+}
+
+.status-item:last-child .status-line{
+    display:none;
+}
+
+.status-icon{
+    min-width:38px;
+    height:38px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#cbd5e1;
+    color:white;
+    font-weight:bold;
+    z-index:2;
+}
+
+.status-item.done .status-icon{
+    background:#059669;
+}
+
+.status-item.current .status-icon{
+    background:#2563eb;
+    box-shadow:0 0 0 6px #dbeafe;
+}
+
+.status-content{
+    flex:1;
+    background:#f8fafc;
+    border-radius:12px;
+    padding:13px 15px;
+}
+
+.status-content h3{
+    margin-bottom:5px;
+}
+
+.status-content p{
+    color:#64748b;
+    font-size:13px;
+}
+
+.status-date{
+    margin-top:7px;
+    color:#2563eb;
+    font-size:12px;
+    font-weight:bold;
+}
+
+
+/* =====================================================
+   TRACK FORM
+===================================================== */
+
+.track-box{
+    max-width:600px;
+    margin:auto;
+}
+
+
+/* =====================================================
+   INFO
+===================================================== */
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:14px;
+    margin-top:20px;
+}
+
+.info{
+    background:#fff;
+    border:1px solid #e2e8f0;
+    padding:17px;
+    border-radius:12px;
+}
+
+.info h3{
+    color:#2563eb;
+    margin-bottom:6px;
+    font-size:15px;
+}
+
+
+/* =====================================================
+   NOTIFICATION
+===================================================== */
+
+.notification{
+    margin-top:20px;
+    background:#eff6ff;
+    border:1px solid #bfdbfe;
+    padding:18px;
+    border-radius:13px;
+}
+
+.notification h3{
+    color:#1d4ed8;
+    margin-bottom:8px;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer{
+    text-align:center;
+    padding:25px;
+    color:#64748b;
+    font-size:13px;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:600px){
+
+    header{
+        padding:13px;
+    }
+
+    .logo{
+        font-size:17px;
+    }
+
+    .hero h1{
+        font-size:27px;
+    }
+
+    .card{
+        padding:19px;
+    }
+
+    .category-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .progress{
+        margin-bottom:25px;
+    }
+
+    .complaint-number{
+        font-size:24px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+    <div class="logo">
+
+        🏛️ Bihar JanSamadhan AI
+
+        <small>
+            Har Nagrik Ki Baat, Sahi Vibhag Tak
+        </small>
+
+    </div>
+
+
+    <div class="language">
+
+        <select id="voiceLanguage">
+
+            <option value="hi-IN">
+                हिंदी
+            </option>
+
+            <option value="en-IN">
+                English
+            </option>
+
+            <option value="bho-IN">
+                भोजपुरी
+            </option>
+
+            <option value="mai-IN">
+                मैथिली
+            </option>
+
+        </select>
+
+    </div>
+
+</header>
+
+
+
+<main>
+
+
+<!-- =====================================================
+     PROGRESS
+===================================================== -->
+
+<div class="progress">
+
+    <div class="step active" id="progress1">
+        1
+    </div>
+
+    <div class="step" id="progress2">
+        2
+    </div>
+
+    <div class="step" id="progress3">
+        3
+    </div>
+
+    <div class="step" id="progress4">
+        4
+    </div>
+
+    <div class="step" id="progress5">
+        5
+    </div>
+
+    <div class="step" id="progress6">
+        6
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     STEP 1
+===================================================== -->
+
+<section class="screen active" id="screen1">
+
+    <div class="hero">
+
+        <h1 id="lblWelcome">
+            स्वागत है 🙏
+        </h1>
+
+        <p id="lblSubWelcome">
+            Bihar JanSamadhan AI में अपनी समस्या दर्ज करें।
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2 id="lblRegTitle">
+            Citizen Registration
+        </h2>
+
+        <p id="lblRegDesc" class="description">
+            Mobile number mandatory है। Gmail optional है।
+        </p>
+
+
+        <label id="lblNameLabel">
+            पूरा नाम *
+        </label>
+
+        <input
+            id="name"
+            type="text"
+            placeholder="अपना पूरा नाम"
+        >
+
+
+        <label id="lblMobileLabel">
+            Mobile Number *
+        </label>
+
+        <input
+            id="mobile"
+            type="tel"
+            maxlength="10"
+            placeholder="10 digit mobile number"
+        >
+
+
+        <label>
+            Gmail / Email
+            <span style="color:#64748b;">
+                (Optional)
+            </span>
+        </label>
+
+        <input
+            id="email"
+            type="email"
+            placeholder="example@gmail.com"
+        >
+
+
+        <label id="lblDistrictLabel">
+            District *
+        </label>
+
+        <select id="district">
+
+            <option value="">
+                District select करें
+            </option>
+
+            <option value="Araria">Araria</option>
+            <option value="Arwal">Arwal</option>
+            <option value="Aurangabad">Aurangabad</option>
+            <option value="Banka">Banka</option>
+            <option value="Begusarai">Begusarai</option>
+            <option value="Bhagalpur">Bhagalpur</option>
+            <option value="Bhojpur">Bhojpur</option>
+            <option value="Buxar">Buxar</option>
+            <option value="Darbhanga">Darbhanga</option>
+            <option value="East Champaran">East Champaran</option>
+            <option value="Gaya">Gaya</option>
+            <option value="Gopalganj">Gopalganj</option>
+            <option value="Jamui">Jamui</option>
+            <option value="Jehanabad">Jehanabad</option>
+            <option value="Kaimur">Kaimur</option>
+            <option value="Katihar">Katihar</option>
+            <option value="Khagaria">Khagaria</option>
+            <option value="Kishanganj">Kishanganj</option>
+            <option value="Lakhisarai">Lakhisarai</option>
+            <option value="Madhepura">Madhepura</option>
+            <option value="Madhubani">Madhubani</option>
+            <option value="Munger">Munger</option>
+            <option value="Muzaffarpur">Muzaffarpur</option>
+            <option value="Nalanda">Nalanda</option>
+            <option value="Nawada">Nawada</option>
+            <option value="Patna">Patna</option>
+            <option value="Purnia">Purnia</option>
+            <option value="Rohtas">Rohtas</option>
+            <option value="Saharsa">Saharsa</option>
+            <option value="Samastipur">Samastipur</option>
+            <option value="Saran">Saran</option>
+            <option value="Sheikhpura">Sheikhpura</option>
+            <option value="Sheohar">Sheohar</option>
+            <option value="Sitamarhi">Sitamarhi</option>
+            <option value="Siwan">Siwan</option>
+            <option value="Supaul">Supaul</option>
+            <option value="Vaishali">Vaishali</option>
+            <option value="West Champaran">West Champaran</option>
+
+        </select>
+
+
+        <label id="lblAreaLabel">
+            Village / Ward / Area *
+        </label>
+
+        <input
+            id="area"
+            type="text"
+            placeholder="गाँव, वार्ड या मोहल्ला"
+        >
+
+
+        <div class="buttons">
+
+            <button
+                id="lblContinueBtn"
+                class="btn primary"
+                onclick="registerUser()"
+            >
+                Continue →
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     STEP 2 CATEGORY
+===================================================== -->
+
+<section class="screen" id="screen2">
+
+    <div class="hero">
+
+        <h1>
+            आपकी समस्या किस प्रकार की है?
+        </h1>
+
+        <p>
+            पहले मुख्य category select करें।
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="category-grid">
+
+
+            <div
+                class="category"
+                onclick="selectCategory(this,'Road')"
+            >
+                <div class="category-icon">🛣️</div>
+                <div class="category-name">Road</div>
+            </div>
+
+
+            <div
+                class="category"
+                onclick="selectCategory(this,'Water Supply')"
+            >
+                <div class="category-icon">💧</div>
+                <div class="category-name">Water Supply</div>
+            </div>
+
+
+            <div
+                class="category"
+                onclick="selectCategory(this,'Electricity')"
+            >
+                <div class="category-icon">⚡</div>
+                <div class="category-name">Electricity</div>
+            </div>
+
+
+            <div
+                class="category"
+                onclick="selectCategory(this,'Street Light')"
+            >
+                <div class="category-icon">💡</div>
+                <div class="category-name">Street Light</div>
+            </div>
+
+
+            <div
+                class="category"
+                onclick="selectCategory(this,'Sanitation')"
+            >
+                <div class="category-icon">🗑️</div>
+                <div class="category-name">Sanitation</div>
+            </div>
+
+
+            <div
+                class="category"
+                onclick="selectCategory(this,'Education')"
+            >
+                <div class="category-icon">🏫</div>
+                <div class="category-name">Education</div>
+            </div>
+
+
+            <div
+                class="category"
+                onclick="selectCategory(this,'Hospital')"
+            >
+                <div class="category-icon">🏥</div>
+                <div class="category-name">Hospital</div>
+            </div>
+
+
+            <div
+                class="category"
+                onclick="selectCategory(this,'Police')"
+            >
+                <div class="category-icon">👮</div>
+                <div class="category-name">Police</div>
+            </div>
+
+
+            <div
+                class="category"
+                onclick="selectCategory(this,'Public Services')"
+            >
+                <div class="category-icon">🏛️</div>
+                <div class="category-name">Public Services</div>
+            </div>
+
+
+            <div
+                class="category"
+                onclick="selectCategory(this,'Industry')"
+            >
+                <div class="category-icon">🏭</div>
+                <div class="category-name">Industry</div>
+            </div>
+
+
+            <div
+                class="category"
+                onclick="selectCategory(this,'Agriculture')"
+            >
+                <div class="category-icon">🌾</div>
+                <div class="category-name">Agriculture</div>
+            </div>
+
+
+            <div
+                class="category"
+                onclick="selectCategory(this,'Transport')"
+            >
+                <div class="category-icon">🚌</div>
+                <div class="category-name">Transport</div>
+            </div>
+
+
+            <div
+                class="category"
+                onclick="selectCategory(this,'Women & Child')"
+            >
+                <div class="category-icon">👩‍👧</div>
+                <div class="category-name">Women & Child</div>
+            </div>
+
+
+            <div
+                class="category"
+                onclick="selectCategory(this,'Environment')"
+            >
+                <div class="category-icon">🌳</div>
+                <div class="category-name">Environment</div>
+            </div>
+
+
+            <div
+                class="category"
+                onclick="selectCategory(this,'Social Welfare')"
+            >
+                <div class="category-icon">🤝</div>
+                <div class="category-name">Social Welfare</div>
+            </div>
+
+
+            <div
+                class="category"
+                onclick="selectCategory(this,'Personal Problem')"
+            >
+                <div class="category-icon">👤</div>
+                <div class="category-name">Personal Problem</div>
+            </div>
+
+
+            <div
+                class="category"
+                onclick="selectCategory(this,'Senior Citizen')"
+            >
+                <div class="category-icon">👴</div>
+                <div class="category-name">Senior Citizen</div>
+            </div>
+
+
+            <div
+                class="category"
+                onclick="selectCategory(this,'Other')"
+            >
+                <div class="category-icon">📋</div>
+                <div class="category-name">Other</div>
+            </div>
+
+        </div>
+
+
+        <!-- SUB CATEGORY -->
+
+        <div
+            id="subcategoryContainer"
+            class="subcategory-box"
+            style="display:none;"
+        >
+
+            <h3>
+                Specific Problem Select करें
+            </h3>
+
+            <div
+                id="subcategoryList"
+                class="subcategory-list"
+            >
+            </div>
+
+        </div>
+
+
+        <div class="buttons">
+
+            <button
+                class="btn secondary"
+                onclick="showScreen(1)"
+            >
+                ← Back
+            </button>
+
+            <button
+                class="btn primary"
+                onclick="goToProblem()"
+            >
+                Next →
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     STEP 3 PROBLEM
+===================================================== -->
+
+<section class="screen" id="screen3">
+
+    <div class="hero">
+
+        <h1>
+            अपनी समस्या बताएं
+        </h1>
+
+        <p>
+            Type करें या microphone से बोलें।
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2 id="categoryTitle">
+            Problem Description
+        </h2>
+
+
+        <label>
+            आपकी समस्या *
+        </label>
+
+        <textarea
+            id="problem"
+            placeholder="अपनी समस्या विस्तार से बताएं..."
+        ></textarea>
+
+
+
+        <!-- =================================================
+             YOUTUBE STYLE MICROPHONE
+        ================================================== -->
+
+        <div class="voice-container">
+
+            <div class="voice-title">
+                🎙️ Voice Complaint
+            </div>
+
+            <div class="voice-subtitle">
+                Microphone दबाकर अपनी समस्या बोलें
+            </div>
+
+
+            <button
+                id="micButton"
+                class="mic-button"
+                onclick="toggleVoice()"
+                title="Start Voice"
+            >
+                🎙️
+            </button>
+
+
+            <div
+                id="voiceTimer"
+                class="voice-timer"
+            >
+                00:00
+            </div>
+
+
+            <div
+                id="voiceStatus"
+                class="voice-status"
+            >
+                Ready to record
+            </div>
+
+
+            <div class="voice-controls">
+
+                <button
+                    id="startVoice"
+                    class="voice-control"
+                    onclick="startVoice()"
+                >
+                    ▶ Start
+                </button>
+
+                <button
+                    id="stopVoice"
+                    class="voice-control"
+                    onclick="stopVoice()"
+                    disabled
+                >
+                    ■ Stop
+                </button>
+
+                <button
+                    class="voice-control"
+                    onclick="clearVoice()"
+                >
+                    🗑 Clear
+                </button>
+
+            </div>
+
+
+            <div class="mic-help">
+
+                Chrome/Edge में microphone permission
+                Allow करें।
+
+            </div>
+
+        </div>
+
+
+
+        <label>
+            Problem कितने दिन से है? *
+        </label>
+
+        <input
+            id="days"
+            type="number"
+            min="0"
+            placeholder="Example: 4"
+        >
+
+
+
+        <label>
+            Problem Location *
+        </label>
+
+        <input
+            id="location"
+            type="text"
+            placeholder="जैसे Main Road, Ward 5"
+        >
+
+
+        <button
+            class="btn cyan"
+            onclick="getGPS()"
+        >
+            📍 Get Current GPS Location
+        </button>
+
+
+        <div class="gps-box">
+
+            <strong>
+                GPS Status
+            </strong>
+
+            <div
+                id="gpsStatus"
+                class="gps-status"
+            >
+                GPS location अभी capture नहीं हुई है।
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             PROOF
+        ================================================== -->
+
+        <label>
+            Problem Proof / Evidence *
+        </label>
+
+        <div class="proof">
+
+            <p>
+                📸 Problem की photo upload करें
+            </p>
+
+            <p
+                style="font-size:13px;color:#64748b;margin-top:5px;"
+            >
+                Mobile पर camera से सीधे photo ले सकते हैं।
+            </p>
+
+            <br>
+
+            <input
+                id="proofPhoto"
+                type="file"
+                accept="image/*"
+                capture="environment"
+                onchange="previewPhoto(event)"
+            >
+
+            <img
+                id="photoPreview"
+                class="preview"
+                alt="Proof"
+            >
+
+            <div
+                id="photoInfo"
+                class="photo-info"
+            >
+            </div>
+
+        </div>
+
+
+
+        <div class="buttons">
+
+            <button
+                class="btn secondary"
+                onclick="showScreen(2)"
+            >
+                ← Back
+            </button>
+
+            <button
+                class="btn primary"
+                onclick="analyzeProblem()"
+            >
+                🤖 AI Analyze →
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     STEP 4 AI
+===================================================== -->
+
+<section class="screen" id="screen4">
+
+    <div class="hero">
+
+        <h1>
+            🤖 AI Complaint Analysis
+        </h1>
+
+        <p>
+            आपकी complaint को structured information में बदला गया।
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="ai-box">
+
+            <div class="ai-title">
+                Complaint Summary
+            </div>
+
+
+            <div class="analysis-grid">
+
+                <div class="analysis-item">
+                    <small>Citizen</small>
+                    <strong id="rName">-</strong>
+                </div>
+
+                <div class="analysis-item">
+                    <small>Category</small>
+                    <strong id="rCategory">-</strong>
+                </div>
+
+                <div class="analysis-item">
+                    <small>Specific Problem</small>
+                    <strong id="rSubCategory">-</strong>
+                </div>
+
+                <div class="analysis-item">
+                    <small>Problem</small>
+                    <strong id="rProblem">-</strong>
+                </div>
+
+                <div class="analysis-item">
+                    <small>Duration</small>
+                    <strong id="rDays">-</strong>
+                </div>
+
+                <div class="analysis-item">
+                    <small>Department</small>
+                    <strong id="rDepartment">-</strong>
+                </div>
+
+                <div class="analysis-item">
+                    <small>Priority</small>
+                    <strong id="rPriority">-</strong>
+                </div>
+
+                <div class="analysis-item">
+                    <small>Location</small>
+                    <strong id="rLocation">-</strong>
+                </div>
+
+                <div class="analysis-item">
+                    <small>GPS</small>
+                    <strong id="rGPS">-</strong>
+                </div>
+
+                <div class="analysis-item">
+                    <small>Proof</small>
+                    <strong id="rProof">-</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="note">
+
+            यह prototype AI-style routing दिखाता है।
+            वास्तविक deployment में official department mapping,
+            jurisdiction और authorized officer workflow जोड़ना होगा।
+
+        </div>
+
+
+        <div class="buttons">
+
+            <button
+                class="btn secondary"
+                onclick="showScreen(3)"
+            >
+                ← Edit
+            </button>
+
+            <button
+                class="btn success"
+                onclick="submitComplaint()"
+            >
+                ✅ Submit Complaint
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     STEP 5 TRACKING
+===================================================== -->
+
+<section class="screen" id="screen5">
+
+    <div class="hero">
+
+        <h1>
+            Complaint Successfully Submitted 🎉
+        </h1>
+
+        <p>
+            अब अपनी complaint का status track करें।
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="complaint-header">
+
+            <h2>
+                Complaint ID
+            </h2>
+
+            <div
+                id="complaintID"
+                class="complaint-number"
+            >
+                BJS-000000
+            </div>
+
+            <p>
+                इस ID को सुरक्षित रखें।
+            </p>
+
+        </div>
+
+
+        <h2>
+            Complaint Status
+        </h2>
+
+
+        <div
+            id="statusTimeline"
+            class="status-timeline"
+        >
+
+            <!-- JS will create timeline -->
+
+        </div>
+
+
+        <div class="info-grid">
+
+            <div class="info">
+                <h3>📋 Category</h3>
+                <p id="tCategory">-</p>
+            </div>
+
+            <div class="info">
+                <h3>🏢 Department</h3>
+                <p id="tDepartment">-</p>
+            </div>
+
+            <div class="info">
+                <h3>📍 Location</h3>
+                <p id="tLocation">-</p>
+            </div>
+
+            <div class="info">
+                <h3>🚦 Priority</h3>
+                <p id="tPriority">-</p>
+            </div>
+
+            <div class="info">
+                <h3>📸 Proof</h3>
+                <p id="tProof">-</p>
+            </div>
+
+            <div class="info">
+                <h3>📱 Notification</h3>
+                <p id="tNotification">-</p>
+            </div>
+
+        </div>
+
+
+        <div class="notification">
+
+            <h3>
+                🔔 Notification Preference
+            </h3>
+
+            <p id="notificationText">
+                Status update होने पर registered mobile
+                number पर notification भेजने के लिए system तैयार है।
+            </p>
+
+        </div>
+
+
+        <div class="buttons">
+
+            <button
+                class="btn primary"
+                onclick="showScreen(6)"
+            >
+                🔎 Track Complaint
+            </button>
+
+            <button
+                class="btn secondary"
+                onclick="newComplaint()"
+            >
+                + New Complaint
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     STEP 6 TRACK
+===================================================== -->
+
+<section class="screen" id="screen6">
+
+    <div class="hero">
+
+        <h1>
+            🔎 Track Your Complaint
+        </h1>
+
+        <p>
+            Scholarship/application tracking की तरह complaint status देखें।
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="track-box">
+
+            <label>
+                Complaint ID
+            </label>
+
+            <input
+                id="trackID"
+                placeholder="Example: BJS-123456"
+            >
+
+
+            <label>
+                Registered Mobile Number
+            </label>
+
+            <input
+                id="trackMobile"
+                maxlength="10"
+                placeholder="10 digit mobile number"
+            >
+
+
+            <div class="buttons">
+
+                <button
+                    class="btn primary"
+                    onclick="trackComplaint()"
+                >
+                    🔎 Check Status
+                </button>
+
+                <button
+                    class="btn secondary"
+                    onclick="showScreen(5)"
+                >
+                    ← Back
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="trackedResult"
+            style="display:none;margin-top:30px;"
+        >
+
+            <div class="complaint-header">
+
+                <h2>
+                    Complaint Status
+                </h2>
+
+                <div
+                    id="trackedID"
+                    class="complaint-number"
+                >
+                </div>
+
+                <p id="trackedMessage">
+                </p>
+
+            </div>
+
+
+            <div
+                id="trackedTimeline"
+                class="status-timeline"
+            >
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+
+<footer>
+
+    Bihar JanSamadhan AI © 2026
+    <br>
+    Citizen Grievance Management Prototype
+
+</footer>
+
+
+
+<script>
+
+/* =====================================================
+   GLOBAL DATA
+===================================================== */
+
+let user = {};
+
+let category = "";
+
+let subCategory = "";
+
+let gps = null;
+
+let proofFile = null;
+
+let recognition = null;
+
+let recording = false;
+
+let timerInterval = null;
+
+let seconds = 0;
+
+let complaint = null;
+
+
+/* =====================================================
+   SCREEN
+===================================================== */
+
+function showScreen(n){
+
+    document
+        .querySelectorAll(".screen")
+        .forEach(s => s.classList.remove("active"));
+
+    document
+        .getElementById("screen"+n)
+        .classList.add("active");
+
+    for(let i=1;i<=6;i++){
+
+        document
+            .getElementById("progress"+i)
+            .classList.toggle("active",i<=n);
+
+    }
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+
+/* =====================================================
+   REGISTRATION
+===================================================== */
+
+function registerUser(){
+
+    const name =
+        document.getElementById("name").value.trim();
+
+    const mobile =
+        document.getElementById("mobile").value.trim();
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const district =
+        document.getElementById("district").value;
+
+    const area =
+        document.getElementById("area").value.trim();
+
+
+    if(!name || !mobile || !district || !area){
+
+        alert(
+            "Name, Mobile, District और Area mandatory हैं।"
+        );
+
+        return;
+    }
+
+
+    if(!/^[0-9]{10}$/.test(mobile)){
+
+        alert(
+            "Valid 10 digit mobile number डालें।"
+        );
+
+        return;
+    }
+
+
+    if(email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+
+        alert(
+            "Email सही format में डालें।"
+        );
+
+        return;
+    }
+
+
+    user = {
+        name,
+        mobile,
+        email,
+        district,
+        area
+    };
+
+
+    showScreen(2);
+}
+
+
+/* =====================================================
+   CATEGORY DATA
+===================================================== */
+
+const subCategories = {
+
+    "Road":[
+        "Road damaged",
+        "Pothole",
+        "Water logging on road",
+        "Bridge problem",
+        "Road construction delay",
+        "Other road problem"
+    ],
+
+    "Water Supply":[
+        "No water supply",
+        "Dirty water",
+        "Pipeline leakage",
+        "Hand pump not working",
+        "Water shortage",
+        "Other water problem"
+    ],
+
+    "Electricity":[
+        "Transformer damaged",
+        "Power cut",
+        "Electric pole problem",
+        "Loose/dangerous wire",
+        "Meter problem",
+        "Other electricity problem"
+    ],
+
+    "Street Light":[
+        "Street light not working",
+        "Broken light pole",
+        "Dark street",
+        "New street light required"
+    ],
+
+    "Sanitation":[
+        "Garbage not collected",
+        "Drain blockage",
+        "Open drain",
+        "Public toilet problem",
+        "Waste dumping",
+        "Other sanitation problem"
+    ],
+
+    "Education":[
+        "School infrastructure",
+        "Teacher related issue",
+        "Scholarship issue",
+        "Mid-day meal issue",
+        "School toilet/water problem",
+        "Other education problem"
+    ],
+
+    "Hospital":[
+        "Hospital service issue",
+        "Medicine unavailable",
+        "Doctor availability",
+        "Cleanliness problem",
+        "Ambulance related issue",
+        "Other healthcare problem"
+    ],
+
+    "Police":[
+        "Police service",
+        "Law & order",
+        "Lost document/report",
+        "Traffic issue",
+        "Public safety concern",
+        "Other police issue"
+    ],
+
+    "Public Services":[
+        "Government office service",
+        "Certificate issue",
+        "Ration related issue",
+        "Public distribution issue",
+        "Online government service",
+        "Other public service"
+    ],
+
+    "Industry":[
+        "Industrial pollution",
+        "Factory related issue",
+        "Industrial road",
+        "Worker related civic issue",
+        "Industrial waste",
+        "Other industry problem"
+    ],
+
+    "Agriculture":[
+        "Irrigation",
+        "Crop related issue",
+        "Fertilizer availability",
+        "Agricultural electricity",
+        "Agricultural subsidy",
+        "Other agriculture problem"
+    ],
+
+    "Transport":[
+        "Bus service",
+        "Public transport",
+        "Road transport",
+        "Bus stop problem",
+        "Traffic/transport issue",
+        "Other transport problem"
+    ],
+
+    "Women & Child":[
+        "Women support service",
+        "Child welfare",
+        "Anganwadi issue",
+        "Child nutrition",
+        "Women safety service",
+        "Other women/child issue"
+    ],
+
+    "Environment":[
+        "Air pollution",
+        "Water pollution",
+        "Illegal dumping",
+        "Tree/environment issue",
+        "Noise pollution",
+        "Other environment problem"
+    ],
+
+    "Social Welfare":[
+        "Pension",
+        "Disability assistance",
+        "Social welfare scheme",
+        "Ration assistance",
+        "Financial assistance",
+        "Other welfare issue"
+    ],
+
+    "Personal Problem":[
+        "Personal government service",
+        "Document related issue",
+        "Pension",
+        "Disability assistance",
+        "Family support service",
+        "Women related personal issue",
+        "Child related personal issue",
+        "Other personal problem"
+    ],
+
+    "Senior Citizen":[
+        "Old age pension",
+        "Senior citizen assistance",
+        "Healthcare assistance",
+        "Senior citizen certificate",
+        "Social security",
+        "Other senior citizen issue"
+    ],
+
+    "Other":[
+        "Other government service",
+        "Other civic issue",
+        "Other local problem"
+    ]
+
+};
+
+
+/* =====================================================
+   CATEGORY SELECT
+===================================================== */
+
+function selectCategory(element,name){
+
+    document
+        .querySelectorAll(".category")
+        .forEach(c =>
+            c.classList.remove("selected")
+        );
+
+    element.classList.add("selected");
+
+    category = name;
+
+    subCategory = "";
+
+    const container =
+        document.getElementById("subcategoryContainer");
+
+    const list =
+        document.getElementById("subcategoryList");
+
+
+    list.innerHTML = "";
+
+
+    const items =
+        subCategories[name] || [];
+
+
+    if(items.length){
+
+        container.style.display = "block";
+
+        items.forEach(item => {
+
+            const div =
+                document.createElement("div");
+
+            div.className =
+                "subcategory";
+
+            div.innerText =
+                item;
+
+            div.onclick = function(){
+
+                document
+                    .querySelectorAll(".subcategory")
+                    .forEach(x =>
+                        x.classList.remove("selected")
+                    );
+
+                div.classList.add("selected");
+
+                subCategory = item;
+            };
+
+            list.appendChild(div);
+
+        });
+
+    }else{
+
+        container.style.display = "none";
+
+    }
+
+}
+
+
+/* =====================================================
+   STEP 2 -> STEP 3
+===================================================== */
+
+function goToProblem(){
+
+    if(!category){
+
+        alert(
+            "पहले problem category select करें।"
+        );
+
+        return;
+    }
+
+
+    if(
+        subCategories[category] &&
+        subCategories[category].length &&
+        !subCategory
+    ){
+
+        alert(
+            "Specific problem भी select करें।"
+        );
+
+        return;
+    }
+
+
+    document
+        .getElementById("categoryTitle")
+        .innerText =
+        category +
+        " - " +
+        subCategory;
+
+
+    showScreen(3);
+}
+
+
+/* =====================================================
+   VOICE RECOGNITION
+===================================================== */
+
+function createRecognition(){
+
+    const SpeechRecognition =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
+
+
+    if(!SpeechRecognition){
+
+        alert(
+            "आपका browser voice recognition support नहीं करता। Chrome या Edge इस्तेमाल करें।"
+        );
+
+        return null;
+    }
+
+
+    const r =
+        new SpeechRecognition();
+
+
+    r.lang =
+        document.getElementById("voiceLanguage").value;
+
+    r.continuous = true;
+
+    r.interimResults = true;
+
+    r.maxAlternatives = 1;
+
+
+    r.onstart = function(){
+
+        setVoiceUI(true);
+
+    };
+
+
+    r.onresult = function(event){
+
+        let finalText = "";
+
+        let interimText = "";
+
+
+        for(
+            let i=event.resultIndex;
+            i<event.results.length;
+            i++
+        ){
+
+            const transcript =
+                event.results[i][0].transcript;
+
+
+            if(event.results[i].isFinal){
+
+                finalText +=
+                    transcript + " ";
+
+            }else{
+
+                interimText +=
+                    transcript;
+
+            }
+
+        }
+
+
+        const textarea =
+            document.getElementById("problem");
+
+
+        if(finalText){
+
+            textarea.value +=
+                finalText;
+
+        }
+
+
+        document
+            .getElementById("voiceStatus")
+            .innerText =
+            interimText
+            ? "🎙️ " + interimText
+            : "Listening...";
+    };
+
+
+    r.onerror = function(event){
+
+        console.log(
+            "Voice error:",
+            event.error
+        );
+
+
+        let message =
+            "Voice input में समस्या हुई।";
+
+
+        if(event.error === "not-allowed"){
+
+            message =
+                "Microphone permission Allow करें।";
+
+        }else if(event.error === "no-speech"){
+
+            message =
+                "आवाज़ सुनाई नहीं दी। फिर से बोलें।";
+
+        }else if(event.error === "network"){
+
+            message =
+                "Voice recognition के लिए internet connection check करें।";
+
+        }
+
+
+        document
+            .getElementById("voiceStatus")
+            .innerText =
+            "❌ " + message;
+
+    };
+
+
+    r.onend = function(){
+
+        if(recording){
+
+            try{
+                r.start();
+            }catch(e){}
+
+        }else{
+
+            setVoiceUI(false);
+
+        }
+
+    };
+
+
+    return r;
+}
+
+
+/* =====================================================
+   START VOICE
+===================================================== */
+
+function startVoice(){
+
+    if(recording){
+
+        return;
+    }
+
+
+    recognition =
+        createRecognition();
+
+
+    if(!recognition){
+
+        return;
+    }
+
+
+    recording = true;
+
+    seconds = 0;
+
+    updateTimer();
+
+
+    timerInterval =
+        setInterval(
+            updateTimer,
+            1000
+        );
+
+
+    document
+        .getElementById("voiceStatus")
+        .innerText =
+        "🎙️ Listening... अब अपनी समस्या बोलें।";
+
+
+    try{
+
+        recognition.start();
+
+    }catch(error){
+
+        console.log(error);
+
+    }
+
+}
+
+
+/* =====================================================
+   STOP VOICE
+===================================================== */
+
+function stopVoice(){
+
+    recording = false;
+
+
+    clearInterval(timerInterval);
+
+
+    if(recognition){
+
+        try{
+
+            recognition.stop();
+
+        }catch(e){}
+
+    }
+
+
+    setVoiceUI(false);
+
+
+    document
+        .getElementById("voiceStatus")
+        .innerText =
+        "✅ Voice recording stopped.";
+
+}
+
+
+/* =====================================================
+   TOGGLE MIC
+===================================================== */
+
+function toggleVoice(){
+
+    if(recording){
+
+        stopVoice();
+
+    }else{
+
+        startVoice();
+
+    }
+
+}
+
+
+/* =====================================================
+   VOICE UI
+===================================================== */
+
+function setVoiceUI(active){
+
+    const button =
+        document.getElementById("micButton");
+
+
+    const start =
+        document.getElementById("startVoice");
+
+
+    const stop =
+        document.getElementById("stopVoice");
+
+
+    if(active){
+
+        button.classList.add("recording");
+
+        button.innerText =
+            "⏹️";
+
+        start.disabled = true;
+
+        stop.disabled = false;
+
+    }else{
+
+        button.classList.remove("recording");
+
+        button.innerText =
+            "🎙️";
+
+        start.disabled = false;
+
+        stop.disabled = true;
+
+    }
+
+}
+
+
+/* =====================================================
+   TIMER
+===================================================== */
+
+function updateTimer(){
+
+    seconds++;
+
+    const min =
+        String(
+            Math.floor(seconds/60)
+        ).padStart(2,"0");
+
+    const sec =
+        String(
+            seconds%60
+        ).padStart(2,"0");
+
+
+    document
+        .getElementById("voiceTimer")
+        .innerText =
+        min + ":" + sec;
+
+}
+
+
+/* =====================================================
+   CLEAR VOICE
+===================================================== */
+
+function clearVoice(){
+
+    stopVoice();
+
+    document
+        .getElementById("problem")
+        .value = "";
+
+    document
+        .getElementById("voiceTimer")
+        .innerText =
+        "00:00";
+
+    seconds = 0;
+
+    document
+        .getElementById("voiceStatus")
+        .innerText =
+        "Ready to record";
+
+}
+
+
+/* =====================================================
+   GPS
+===================================================== */
+
+function getGPS(){
+
+    const status =
+        document.getElementById("gpsStatus");
+
+
+    if(!navigator.geolocation){
+
+        status.innerText =
+            "❌ GPS browser में available नहीं है.";
+
+        return;
+    }
+
+
+    status.innerText =
+        "📍 GPS location detect हो रही है...";
+
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position){
+
+            gps = {
+
+                lat:
+                    position.coords.latitude,
+
+                lng:
+                    position.coords.longitude,
+
+                accuracy:
+                    position.coords.accuracy
+
+            };
+
+
+            document
+                .getElementById("location")
+                .value =
+                "GPS: " +
+                gps.lat.toFixed(6) +
+                ", " +
+                gps.lng.toFixed(6);
+
+
+            status.innerHTML =
+                "✅ Location captured<br>" +
+                "Latitude: " +
+                gps.lat.toFixed(6) +
+                "<br>" +
+                "Longitude: " +
+                gps.lng.toFixed(6) +
+                "<br>" +
+                "Accuracy: लगभग " +
+                Math.round(gps.accuracy) +
+                " meters";
+
+        },
+
+        function(error){
+
+            status.innerText =
+                "❌ GPS permission/location available नहीं है।";
+
+            console.log(error);
+
+        },
+
+        {
+            enableHighAccuracy:true,
+            timeout:15000,
+            maximumAge:0
+        }
+
+    );
+
+}
+
+
+/* =====================================================
+   PHOTO
+===================================================== */
+
+function previewPhoto(event){
+
+    const file =
+        event.target.files[0];
+
+
+    if(!file){
+
+        return;
+    }
+
+
+    if(!file.type.startsWith("image/")){
+
+        alert(
+            "Please image file upload करें।"
+        );
+
+        return;
+    }
+
+
+    proofFile = file;
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload =
+        function(e){
+
+            const preview =
+                document.getElementById("photoPreview");
+
+
+            preview.src =
+                e.target.result;
+
+
+            preview.style.display =
+                "block";
+
+
+            document
+                .getElementById("photoInfo")
+                .innerText =
+                "📸 " +
+                file.name +
+                " • " +
+                formatSize(file.size);
+
+        };
+
+
+    reader.readAsDataURL(file);
+
+}
+
+
+function formatSize(bytes){
+
+    if(bytes < 1024){
+
+        return bytes + " Bytes";
+
+    }
+
+    if(bytes < 1024*1024){
+
+        return (
+            bytes/1024
+        ).toFixed(1) +
+        " KB";
+
+    }
+
+    return (
+        bytes/(1024*1024)
+    ).toFixed(1) +
+    " MB";
+
+}
+
+
+/* =====================================================
+   DEPARTMENT
+===================================================== */
+
+function departmentFor(cat){
+
+    const map = {
+
+        "Road":
+            "Road / Public Works Authority",
+
+        "Water Supply":
+            "Water Supply Authority",
+
+        "Electricity":
+            "Electricity Department / DISCOM",
+
+        "Street Light":
+            "Local Civic Authority",
+
+        "Sanitation":
+            "Municipal / Panchayat Authority",
+
+        "Education":
+            "Education Department",
+
+        "Hospital":
+            "Health Department",
+
+        "Police":
+            "Police / Law & Order",
+
+        "Public Services":
+            "Concerned Public Service Department",
+
+        "Industry":
+            "Industry Department / Concerned Authority",
+
+        "Agriculture":
+            "Agriculture Department",
+
+        "Transport":
+            "Transport Department",
+
+        "Women & Child":
+            "Women & Child Development",
+
+        "Environment":
+            "Environment / Pollution Authority",
+
+        "Social Welfare":
+            "Social Welfare Department",
+
+        "Personal Problem":
+            "Concerned Government Department",
+
+        "Senior Citizen":
+            "Social Welfare / Senior Citizen Services",
+
+        "Other":
+            "Concerned Government Department"
+
+    };
+
+
+    return map[cat] ||
+        "Concerned Government Department";
+
+}
+
+
+/* =====================================================
+   PRIORITY
+===================================================== */
+
+function priorityFor(problem,days){
+
+    const text =
+        problem.toLowerCase();
+
+
+    const critical = [
+
+        "fire",
+        "accident",
+        "emergency",
+        "danger",
+        "electric wire",
+        "current",
+        "flood",
+        "collapse",
+
+        "आग",
+        "दुर्घटना",
+        "आपातकाल",
+        "खतरा",
+        "करंट",
+        "बाढ़"
+
+    ];
+
+
+    for(const word of critical){
+
+        if(text.includes(word)){
+
+            return "🔴 Critical";
+
+        }
+
+    }
+
+
+    const d =
+        parseInt(days) || 0;
+
+
+    if(d >= 7){
+
+        return "🟠 High";
+
+    }
+
+
+    if(d >= 3){
+
+        return "🟡 Medium";
+
+    }
+
+
+    return "🟢 Normal";
+
+}
+
+
+/* =====================================================
+   AI ANALYSIS
+===================================================== */
+
+function analyzeProblem(){
+
+    const problem =
+        document
+            .getElementById("problem")
+            .value
+            .trim();
+
+    const days =
+        document
+            .getElementById("days")
+            .value;
+
+    const location =
+        document
+            .getElementById("location")
+            .value
+            .trim();
+
+
+    if(!problem){
+
+        alert(
+            "Problem description mandatory है।"
+        );
+
+        return;
+    }
+
+
+    if(!days){
+
+        alert(
+            "Problem कितने दिन से है यह बताना mandatory है।"
+        );
+
+        return;
+    }
+
+
+    if(!location){
+
+        alert(
+            "Problem location mandatory है। GPS या manual location दें।"
+        );
+
+        return;
+    }
+
+
+    if(!proofFile){
+
+        alert(
+            "Problem का photo proof mandatory है।"
+        );
+
+        return;
+    }
+
+
+    const department =
+        departmentFor(category);
+
+
+    const priority =
+        priorityFor(problem,days);
+
+
+    const gpsText =
+        gps
+        ? gps.lat.toFixed(6) +
+          ", " +
+          gps.lng.toFixed(6)
+        : "GPS not captured";
+
+
+    document.getElementById("rName")
+        .innerText = user.name;
+
+    document.getElementById("rCategory")
+        .innerText = category;
+
+    document.getElementById("rSubCategory")
+        .innerText = subCategory;
+
+    document.getElementById("rProblem")
+        .innerText = problem;
+
+    document.getElementById("rDays")
+        .innerText = days + " days";
+
+    document.getElementById("rDepartment")
+        .innerText = department;
+
+    document.getElementById("rPriority")
+        .innerText = priority;
+
+    document.getElementById("rLocation")
+        .innerText = location;
+
+    document.getElementById("rGPS")
+        .innerText = gpsText;
+
+    document.getElementById("rProof")
+        .innerText =
+        "📸 " + proofFile.name;
+
+
+    showScreen(4);
+
+}
+
+
+/* =====================================================
+   SUBMIT
+===================================================== */
+
+function submitComplaint(){
+
+    const id =
+        "BJS-" +
+        Math.floor(
+            100000 +
+            Math.random()*900000
+        );
+
+
+    complaint = {
+
+        id:id,
+
+        user:user,
+
+        category:category,
+
+        subCategory:subCategory,
+
+        problem:
+            document
+            .getElementById("problem")
+            .value,
+
+        days:
+            document
+            .getElementById("days")
+            .value,
+
+        location:
+            document
+            .getElementById("location")
+            .value,
+
+        gps:gps,
+
+        proof:
+            proofFile
+            ? proofFile.name
+            : "",
+
+        department:
+            departmentFor(category),
+
+        priority:
+            priorityFor(
+                document
+                    .getElementById("problem")
+                    .value,
+                document
+                    .getElementById("days")
+                    .value
+            ),
+
+        currentStatus:2,
+
+        createdAt:
+            new Date().toLocaleString("en-IN")
+
+    };
+
+
+    localStorage.setItem(
+        "biharJanSamadhanComplaint",
+        JSON.stringify(complaint)
+    );
+
+
+    document
+        .getElementById("complaintID")
+        .innerText =
+        id;
+
+
+    document
+        .getElementById("tCategory")
+        .innerText =
+        category +
+        " - " +
+        subCategory;
+
+
+    document
+        .getElementById("tDepartment")
+        .innerText =
+        complaint.department;
+
+
+    document
+        .getElementById("tLocation")
+        .innerText =
+        complaint.location;
+
+
+    document
+        .getElementById("tPriority")
+        .innerText =
+        complaint.priority;
+
+
+    document
+        .getElementById("tProof")
+        .innerText =
+        "📸 Attached";
+
+
+    document
+        .getElementById("tNotification")
+        .innerText =
+        user.email
+        ? "Mobile + Email"
+        : "Mobile";
+
+
+    createTimeline(
+        "statusTimeline",
+        complaint.currentStatus
+    );
+
+
+    showScreen(5);
+
+}
+
+
+/* =====================================================
+   STATUS DATA
+===================================================== */
+
+const statuses = [
+
+    {
+        title:"Complaint Submitted",
+        text:"आपकी complaint successfully register हो गई।"
+    },
+
+    {
+        title:"Department Identified",
+        text:"Complaint को संबंधित department के लिए identify किया गया।"
+    },
+
+    {
+        title:"Officer Assigned",
+        text:"Complaint संबंधित office/authority को भेजी गई।"
+    },
+
+    {
+        title:"Under Review",
+        text:"अधिकारी complaint की जाँच कर रहे हैं।"
+    },
+
+    {
+        title:"Action Taken",
+        text:"Complaint पर कार्रवाई की जानकारी update होगी।"
+    },
+
+    {
+        title:"Resolved",
+        text:"Complaint का समाधान दर्ज किया गया।"
+    }
+
+];
+
+
+/* =====================================================
+   TIMELINE
+===================================================== */
+
+function createTimeline(containerID,current){
+
+    const container =
+        document.getElementById(containerID);
+
+
+    container.innerHTML = "";
+
+
+    statuses.forEach(
+        (status,index) => {
+
+            const item =
+                document.createElement("div");
+
+
+            item.className =
+                "status-item ";
+
+
+            if(index < current){
+
+                item.classList.add("done");
+
+            }else if(index === current){
+
+                item.classList.add("current");
+
+            }
+
+
+            const icon =
+                index < current
+                ? "✓"
+                : index + 1;
+
+
+            item.innerHTML = `
+
+                <div class="status-icon">
+                    ${icon}
+                </div>
+
+                <div class="status-line"></div>
+
+                <div class="status-content">
+
+                    <h3>
+                        ${status.title}
+                    </h3>
+
+                    <p>
+                        ${status.text}
+                    </p>
+
+                    ${
+                        index <= current
+                        ? `<div class="status-date">
+                            ${
+                                index === 0
+                                ? complaint?.createdAt || "Submitted"
+                                : "Status Update"
+                            }
+                           </div>`
+                        : ""
+                    }
+
+                </div>
+            `;
+
+
+            container.appendChild(item);
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   TRACK COMPLAINT
+===================================================== */
+
+function trackComplaint(){
+
+    const id =
+        document
+            .getElementById("trackID")
+            .value
+            .trim();
+
+    const mobile =
+        document
+            .getElementById("trackMobile")
+            .value
+            .trim();
+
+
+    const saved =
+        localStorage.getItem(
+            "biharJanSamadhanComplaint"
+        );
+
+
+    if(!saved){
+
+        alert(
+            "इस browser में कोई complaint record नहीं मिला।"
+        );
+
+        return;
+    }
+
+
+    const data =
+        JSON.parse(saved);
+
+
+    if(
+        id !== data.id ||
+        mobile !== data.user.mobile
+    ){
+
+        alert(
+            "Complaint ID या mobile number match नहीं करता।"
+        );
+
+        return;
+    }
+
+
+    document
+        .getElementById("trackedResult")
+        .style.display =
+        "block";
+
+
+    document
+        .getElementById("trackedID")
+        .innerText =
+        data.id;
+
+
+    document
+        .getElementById("trackedMessage")
+        .innerText =
+        "Current Status: " +
+        statuses[data.currentStatus].title;
+
+
+    complaint = data;
+
+
+    createTimeline(
+        "trackedTimeline",
+        data.currentStatus
+    );
+
+}
+
+
+/* =====================================================
+   NEW COMPLAINT
+===================================================== */
+
+function newComplaint(){
+
+    category = "";
+
+    subCategory = "";
+
+    gps = null;
+
+    proofFile = null;
+
+    complaint = null;
+
+
+    document
+        .querySelectorAll(".category")
+        .forEach(c =>
+            c.classList.remove("selected")
+        );
+
+
+    document
+        .getElementById("subcategoryContainer")
+        .style.display =
+        "none";
+
+
+    document
+        .getElementById("problem")
+        .value = "";
+
+
+    document
+        .getElementById("days")
+        .value = "";
+
+
+    document
+        .getElementById("location")
+        .value = "";
+
+
+    document
+        .getElementById("proofPhoto")
+        .value = "";
+
+
+    document
+        .getElementById("photoPreview")
+        .style.display =
+        "none";
+
+
+    showScreen(2);
+
+}
+
+
+/* =====================================================
+   LANGUAGE TRANSLATION DICTIONARY & CHANGE HANDLER
+===================================================== */
+
+const translations = {
+    "hi-IN": {
+        welcome: "स्वागत है 🙏",
+        subWelcome: "Bihar JanSamadhan AI में अपनी समस्या दर्ज करें।",
+        regTitle: "Citizen Registration",
+        regDesc: "Mobile number mandatory है। Gmail optional है।",
+        nameLabel: "पूरा नाम *",
+        mobileLabel: "Mobile Number *",
+        districtLabel: "District *",
+        areaLabel: "Village / Ward / Area *",
+        continueBtn: "Continue →"
+    },
+    "en-IN": {
+        welcome: "Welcome 🙏",
+        subWelcome: "Register your grievance in Bihar JanSamadhan AI.",
+        regTitle: "Citizen Registration",
+        regDesc: "Mobile number is mandatory. Gmail is optional.",
+        nameLabel: "Full Name *",
+        mobileLabel: "Mobile Number *",
+        districtLabel: "District *",
+        areaLabel: "Village / Ward / Area *",
+        continueBtn: "Continue →"
+    },
+    "bho-IN": {
+        welcome: "स्वागत ba 🙏",
+        subWelcome: "Bihar JanSamadhan AI mein apna samasya darj kariye.",
+        regTitle: "Nagarik Panjikaran",
+        regDesc: "Mobile number anivarya ba. Gmail optional ba.",
+        nameLabel: "Pura Naam *",
+        mobileLabel: "Mobile Number *",
+        districtLabel: "District Chuniye *",
+        areaLabel: "Gaon / Ward / Area *",
+        continueBtn: "Aage Badhiye →"
+    },
+    "mai-IN": {
+        welcome: "स्वागत छै 🙏",
+        subWelcome: "Bihar JanSamadhan AI mein apan samasya darj kauru.",
+        regTitle: "Nagarik Panjikaran",
+        regDesc: "Mobile number anivarya chhe. Gmail optional chhe.",
+        nameLabel: "Pura Naam *",
+        mobileLabel: "Mobile Number *",
+        districtLabel: "District Chunau *",
+        areaLabel: "Gaon / Ward / Area *",
+        continueBtn: "Aage Badhu →"
+    }
+};
+
+document
+    .getElementById("voiceLanguage")
+    .addEventListener(
+        "change",
+        function(e){
+
+            if(recording){
+                stopVoice();
+            }
+
+            const lang = e.target.value;
+            const t = translations[lang] || translations["hi-IN"];
+
+            // Apply translations to UI elements dynamically
+            if(document.getElementById("lblWelcome")) document.getElementById("lblWelcome").innerText = t.welcome;
+            if(document.getElementById("lblSubWelcome")) document.getElementById("lblSubWelcome").innerText = t.subWelcome;
+            if(document.getElementById("lblRegTitle")) document.getElementById("lblRegTitle").innerText = t.regTitle;
+            if(document.getElementById("lblRegDesc")) document.getElementById("lblRegDesc").innerText = t.regDesc;
+            if(document.getElementById("lblNameLabel")) document.getElementById("lblNameLabel").innerText = t.nameLabel;
+            if(document.getElementById("lblMobileLabel")) document.getElementById("lblMobileLabel").innerText = t.mobileLabel;
+            if(document.getElementById("lblDistrictLabel")) document.getElementById("lblDistrictLabel").innerText = t.districtLabel;
+            if(document.getElementById("lblAreaLabel")) document.getElementById("lblAreaLabel").innerText = t.areaLabel;
+            if(document.getElementById("lblContinueBtn")) document.getElementById("lblContinueBtn").innerText = t.continueBtn;
+
+            document
+                .getElementById("voiceStatus")
+                .innerText =
+                "Language changed. Start recording again.";
+
+        }
+    );
+
+
+</script>
+
+</body>
+</html>
